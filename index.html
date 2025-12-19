@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Water Tank Problem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+        input {
+            width: 300px;
+            padding: 8px;
+        }
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Water Tank Problem</h2>
+
+    <input id="input" placeholder="0,4,0,0,0,6,0,6,4,0">
+    <button onclick="calculateWater()">Submit</button>
+
+    <div id="output"></div>
+
+    <script>
+        function calculateWater() {
+            const heights = document.getElementById("input")
+                .value.split(",")
+                .map(Number);
+
+            let left = 0, right = heights.length - 1;
+            let leftMax = 0, rightMax = 0, water = 0;
+
+            while (left < right) {
+                if (heights[left] < heights[right]) {
+                    leftMax = Math.max(leftMax, heights[left]);
+                    water += leftMax - heights[left];
+                    left++;
+                } else {
+                    rightMax = Math.max(rightMax, heights[right]);
+                    water += rightMax - heights[right];
+                    right--;
+                }
+            }
+
+            document.getElementById("output").innerText =
+                "Total Water Stored: " + water + " units";
+        }
+    </script>
+
+</body>
+</html>
